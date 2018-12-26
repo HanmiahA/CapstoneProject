@@ -40,7 +40,7 @@ class(CrimeDF$Rate) <- "numeric"
 write.csv(CrimeDF, file = "CrimeByState&Offenses.csv")
 
 ##Created a separate data frame containing an average total crime rate per state
-AvgStateRate <- CrimeDF2 %>% group_by(State) %>% summarise(Average_Rate = mean(Rate))
+AvgStateRate <- CrimeDF %>% group_by(State) %>% summarise(Average_Rate = mean(Rate))
 AvgStateRate <- data.frame(AvgStateRate)
 colnames(AvgStateRate)[2] <- "Average Crime Rate"
 
