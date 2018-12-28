@@ -50,7 +50,9 @@ PovertyDF <- data.frame(Poverty_State2017)
 PovertyDF <- PovertyDF[c(4, 6, 9, 10, 13)]
 names(PovertyDF) <- c("State", "All Ages Poverty Count", "Poverty Count 90% Confidence Interval", "All Ages Poverty Percent", "Poverty Percent 90% Confidence Interval")
 
-#Joined the crime rate per state data with the poverty data and saved as a csv file
+#Joined the crime rate per state data with the poverty data, adjusted decimal places, and saved as a csv file
 CrimePovertyDF <- left_join(AvgStateRate, PovertyDF, by = "State")
+is.num <- sapply(CrimePovertyDF, is.numeric)
+CrimePovertyDF[is.num] <- lapply(CrimePovertyDF[is.num], round, 1)
 write.csv(CrimePovertyDF, file = "Crime&PovertyByState.csv")
 
