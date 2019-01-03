@@ -36,6 +36,30 @@ CrimeDF <- arrange(CrimeDF, State)
 CrimeDF$Rate <- gsub(",", "", CrimeDF$Rate)
 class(CrimeDF$Rate) <- "numeric"
 
+#Filtered out Violent Crime and Property Crime into a separate data frame and removed Violent Crime and Property Crime
+#from the original crime data frame
+Violent_Crime <- filter(CrimeDF, Offense == c("Violent Crime"))
+Property_Crime <- filter(CrimeDF, Offense == c("Property Crime"))
+CrimeDF <- filter(CrimeDF, Offense != c("Violent Crime"))
+CrimeDF <- filter(CrimeDF, Offense != c("Property Crime"))
+CrimeDF2 <- bind_rows(Violent_Crime, Property_Crime)
+CrimeDF2 <- arrange(CrimeDF2, State)
+
+#Saved new data frame to CSV file
+write.csv(CrimeDF2, file = "Violent&PropertyCrime")
+
+#Created a new column within the original CrimeDF data frame to label the offenses as violent or property crime
+Murder <- CrimeDF %>% filter(Offense == c("Murder/Nonnegligent Manslaughter")) %>% mutate(Crime = "Violent")
+Rape <- CrimeDF %>% filter(Offense == c("Rape")) %>% mutate(Crime = "Violent")
+Assault <- CrimeDF %>% filter(Offense == c("Aggravated Assault")) %>% mutate(Crime = "Violent")
+Robbery <- CrimeDF %>% filter(Offense == c("Robbery")) %>% mutate(Crime = "Violent")
+Burglary <- CrimeDF %>% filter(Offense == c("Burglary")) %>% mutate(Crime = "Property")
+Larceny <- CrimeDF %>% filter(Offense == c("Larceny")) %>% mutate(Crime = "Property")
+Theft <- CrimeDF %>% filter(Offense == c("Motor Vehicle Theft")) %>% mutate(Crime = "Property")
+
+CrimeDF <- bind_rows(Murder, Rape, Assault, Robbery, Burglary, Larceny, Theft)
+CrimeDF <- arrange(CrimeDF, State)
+
 #Saved to CSV file
 write.csv(CrimeDF, file = "CrimeByState&Offenses.csv")
 
