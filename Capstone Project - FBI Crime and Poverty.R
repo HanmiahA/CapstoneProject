@@ -21,6 +21,7 @@ CrimeDF <- NA2017
 #Removed regions from Area so that the data only included the 50 states plus District of Columbia
 CrimeDF <- CrimeDF %>% filter(!(Area %in% c("United States Total5, 6", "Puerto Rico", "Pacific", "Mountain", "West", "West South Central", "East South Central", "South Atlantic5,6", "South5,6", "West North Central", "East North Central", "Midwest", "Middle Atlantic", "Northeast", "New England")))
 CrimeDF$Area[CrimeDF$Area == "District of Columbia5"] <- c("District of Columbia")
+CrimeDF$Area[CrimeDF$Area == "North Carolina6"] <- c("North Carolina")
 
 #Isolated the crime rates by removing the columns containing the number of offenses
 CrimeDF <- CrimeDF[, -c(4,6,8,10,12,14,16,18,20)]
@@ -46,7 +47,7 @@ CrimeDF2 <- bind_rows(Violent_Crime, Property_Crime)
 CrimeDF2 <- arrange(CrimeDF2, State)
 
 #Saved new data frame to CSV file
-write.csv(CrimeDF2, file = "Violent&PropertyCrime")
+write.csv(CrimeDF2, file = "Violent&PropertyCrime.csv")
 
 #Created a new column within the original CrimeDF data frame to label the offenses as violent or property crime
 Murder <- CrimeDF %>% filter(Offense == c("Murder/Nonnegligent Manslaughter")) %>% mutate(Crime = "Violent")
@@ -72,7 +73,7 @@ colnames(AvgStateRate)[2] <- "Average Crime Rate"
 Poverty_State2017 <- read_csv("Poverty_State2017 (Original).csv")
 PovertyDF <- data.frame(Poverty_State2017)
 PovertyDF <- PovertyDF[c(4, 6, 9, 10, 13)]
-names(PovertyDF) <- c("State", "All Ages Poverty Count", "Poverty Count 90% Confidence Interval", "All Ages Poverty Percent", "Poverty Percent 90% Confidence Interval")
+names(PovertyDF) <- c("State", "Poverty Count", "Poverty Count 90% Confidence Interval", "Poverty Rate", "Poverty Rate 90% Confidence Interval")
 
 #Joined the crime rate per state data with the poverty data, adjusted decimal places, and saved as a csv file
 CrimePovertyDF <- left_join(AvgStateRate, PovertyDF, by = "State")
