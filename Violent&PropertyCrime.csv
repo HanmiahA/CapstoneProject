@@ -1,103 +1,103 @@
-"","State","Year","Population","Offense","Rate"
-"1","Alabama","2017","4,874,747","Violent Crime",524.2
-"2","Alabama","2017","4,874,747","Property Crime",2957.3
-"3","Alaska","2017","739,795","Violent Crime",829
-"4","Alaska","2017","739,795","Property Crime",3542.1
-"5","Arizona","2017","7,016,270","Violent Crime",508
-"6","Arizona","2017","7,016,270","Property Crime",2914.9
-"7","Arkansas","2017","3,004,279","Violent Crime",554.9
-"8","Arkansas","2017","3,004,279","Property Crime",3078.6
-"9","California","2017","39,536,653","Violent Crime",449.3
-"10","California","2017","39,536,653","Property Crime",2496.7
-"11","Colorado","2017","5,607,154","Violent Crime",368.1
-"12","Colorado","2017","5,607,154","Property Crime",2701.6
-"13","Connecticut","2017","3,588,184","Violent Crime",228
-"14","Connecticut","2017","3,588,184","Property Crime",1769.9
-"15","Delaware","2017","961,939","Violent Crime",453.4
-"16","Delaware","2017","961,939","Property Crime",2440.6
-"17","District of Columbia","2017","693,972","Violent Crime",1004.9
-"18","District of Columbia","2017","693,972","Property Crime",4283.9
-"19","Florida","2017","20,984,400","Violent Crime",408
-"20","Florida","2017","20,984,400","Property Crime",2512.4
-"21","Georgia","2017","10,429,379","Violent Crime",357.2
-"22","Georgia","2017","10,429,379","Property Crime",2860.2
-"23","Hawaii","2017","1,427,538","Violent Crime",250.6
-"24","Hawaii","2017","1,427,538","Property Crime",2829.5
-"25","Idaho","2017","1,716,943","Violent Crime",226.4
-"26","Idaho","2017","1,716,943","Property Crime",1635.4
-"27","Illinois","2017","12,802,023","Violent Crime",438.8
-"28","Illinois","2017","12,802,023","Property Crime",2011.4
-"29","Indiana","2017","6,666,818","Violent Crime",399
-"30","Indiana","2017","6,666,818","Property Crime",2416.9
-"31","Iowa","2017","3,145,711","Violent Crime",293.4
-"32","Iowa","2017","3,145,711","Property Crime",2125.3
-"33","Kansas","2017","2,913,123","Violent Crime",413
-"34","Kansas","2017","2,913,123","Property Crime",2800.9
-"35","Kentucky","2017","4,454,189","Violent Crime",225.8
-"36","Kentucky","2017","4,454,189","Property Crime",2129.1
-"37","Louisiana","2017","4,684,333","Violent Crime",557
-"38","Louisiana","2017","4,684,333","Property Crime",3366.8
-"39","Maine","2017","1,335,907","Violent Crime",121
-"40","Maine","2017","1,335,907","Property Crime",1507.1
-"41","Maryland","2017","6,052,177","Violent Crime",500.2
-"42","Maryland","2017","6,052,177","Property Crime",2222.3
-"43","Massachusetts","2017","6,859,819","Violent Crime",358
-"44","Massachusetts","2017","6,859,819","Property Crime",1437
-"45","Michigan","2017","9,962,311","Violent Crime",450
-"46","Michigan","2017","9,962,311","Property Crime",1800
-"47","Minnesota","2017","5,576,606","Violent Crime",238.3
-"48","Minnesota","2017","5,576,606","Property Crime",2191.5
-"49","Mississippi","2017","2,984,100","Violent Crime",285.7
-"50","Mississippi","2017","2,984,100","Property Crime",2733.9
-"51","Missouri","2017","6,113,532","Violent Crime",530.3
-"52","Missouri","2017","6,113,532","Property Crime",2833.9
-"53","Montana","2017","1,050,493","Violent Crime",377.1
-"54","Montana","2017","1,050,493","Property Crime",2591.6
-"55","Nebraska","2017","1,920,076","Violent Crime",305.9
-"56","Nebraska","2017","1,920,076","Property Crime",2274
-"57","Nevada","2017","2,998,039","Violent Crime",555.9
-"58","Nevada","2017","2,998,039","Property Crime",2612.4
-"59","New Hampshire","2017","1,342,795","Violent Crime",198.7
-"60","New Hampshire","2017","1,342,795","Property Crime",1381.8
-"61","New Jersey","2017","9,005,644","Violent Crime",228.8
-"62","New Jersey","2017","9,005,644","Property Crime",1555.5
-"63","New Mexico","2017","2,088,070","Violent Crime",783.5
-"64","New Mexico","2017","2,088,070","Property Crime",3941.7
-"65","New York","2017","19,849,399","Violent Crime",356.7
-"66","New York","2017","19,849,399","Property Crime",1514.2
-"67","North Carolina","2017","10,273,419","Violent Crime",363.7
-"68","North Carolina","2017","10,273,419","Property Crime",2545.3
-"69","North Dakota","2017","755,393","Violent Crime",281.3
-"70","North Dakota","2017","755,393","Property Crime",2197.8
-"71","Ohio","2017","11,658,609","Violent Crime",297.5
-"72","Ohio","2017","11,658,609","Property Crime",2419.1
-"73","Oklahoma","2017","3,930,864","Violent Crime",456.2
-"74","Oklahoma","2017","3,930,864","Property Crime",2876.4
-"75","Oregon","2017","4,142,776","Violent Crime",281.8
-"76","Oregon","2017","4,142,776","Property Crime",2986.5
-"77","Pennsylvania","2017","12,805,537","Violent Crime",313.3
-"78","Pennsylvania","2017","12,805,537","Property Crime",1649.4
-"79","Rhode Island","2017","1,059,639","Violent Crime",232.2
-"80","Rhode Island","2017","1,059,639","Property Crime",1751.6
-"81","South Carolina","2017","5,024,369","Violent Crime",506.2
-"82","South Carolina","2017","5,024,369","Property Crime",3195.9
-"83","South Dakota","2017","869,666","Violent Crime",433.6
-"84","South Dakota","2017","869,666","Property Crime",1876.2
-"85","Tennessee","2017","6,715,984","Violent Crime",651.5
-"86","Tennessee","2017","6,715,984","Property Crime",2940.6
-"87","Texas","2017","28,304,596","Violent Crime",438.9
-"88","Texas","2017","28,304,596","Property Crime",2562.6
-"89","Utah","2017","3,101,833","Violent Crime",238.9
-"90","Utah","2017","3,101,833","Property Crime",2780.2
-"91","Vermont","2017","623,657","Violent Crime",165.8
-"92","Vermont","2017","623,657","Property Crime",1436.7
-"93","Virginia","2017","8,470,020","Violent Crime",208.2
-"94","Virginia","2017","8,470,020","Property Crime",1792.9
-"95","Washington","2017","7,405,743","Violent Crime",304.5
-"96","Washington","2017","7,405,743","Property Crime",3173.6
-"97","West Virginia","2017","1,815,857","Violent Crime",350.7
-"98","West Virginia","2017","1,815,857","Property Crime",1852
-"99","Wisconsin","2017","5,795,483","Violent Crime",319.9
-"100","Wisconsin","2017","5,795,483","Property Crime",1808.3
-"101","Wyoming","2017","579,315","Violent Crime",237.5
-"102","Wyoming","2017","579,315","Property Crime",1830.4
+"","State","Population","Offense","Rate"
+"1","AK",739795,"Violent.Crime",829
+"2","AK",739795,"Property.Crime",3542.1
+"3","AL",4874747,"Violent.Crime",524.2
+"4","AL",4874747,"Property.Crime",2957.3
+"5","AR",3004279,"Violent.Crime",554.9
+"6","AR",3004279,"Property.Crime",3078.6
+"7","AZ",7016270,"Violent.Crime",508
+"8","AZ",7016270,"Property.Crime",2914.9
+"9","CA",39536653,"Violent.Crime",449.3
+"10","CA",39536653,"Property.Crime",2496.7
+"11","CO",5607154,"Violent.Crime",368.1
+"12","CO",5607154,"Property.Crime",2701.6
+"13","CT",3588184,"Violent.Crime",228
+"14","CT",3588184,"Property.Crime",1769.9
+"15","DC",693972,"Violent.Crime",1004.9
+"16","DC",693972,"Property.Crime",4283.9
+"17","DE",961939,"Violent.Crime",453.4
+"18","DE",961939,"Property.Crime",2440.6
+"19","FL",20984400,"Violent.Crime",408
+"20","FL",20984400,"Property.Crime",2512.4
+"21","GA",10429379,"Violent.Crime",357.2
+"22","GA",10429379,"Property.Crime",2860.2
+"23","HI",1427538,"Violent.Crime",250.6
+"24","HI",1427538,"Property.Crime",2829.5
+"25","IA",3145711,"Violent.Crime",293.4
+"26","IA",3145711,"Property.Crime",2125.3
+"27","ID",1716943,"Violent.Crime",226.4
+"28","ID",1716943,"Property.Crime",1635.4
+"29","IL",12802023,"Violent.Crime",438.8
+"30","IL",12802023,"Property.Crime",2011.4
+"31","IN",6666818,"Violent.Crime",399
+"32","IN",6666818,"Property.Crime",2416.9
+"33","KS",2913123,"Violent.Crime",413
+"34","KS",2913123,"Property.Crime",2800.9
+"35","KY",4454189,"Violent.Crime",225.8
+"36","KY",4454189,"Property.Crime",2129.1
+"37","LA",4684333,"Violent.Crime",557
+"38","LA",4684333,"Property.Crime",3366.8
+"39","MA",6859819,"Violent.Crime",358
+"40","MA",6859819,"Property.Crime",1437
+"41","MD",6052177,"Violent.Crime",500.2
+"42","MD",6052177,"Property.Crime",2222.3
+"43","ME",1335907,"Violent.Crime",121
+"44","ME",1335907,"Property.Crime",1507.1
+"45","MI",9962311,"Violent.Crime",450
+"46","MI",9962311,"Property.Crime",1800
+"47","MN",5576606,"Violent.Crime",238.3
+"48","MN",5576606,"Property.Crime",2191.5
+"49","MO",6113532,"Violent.Crime",530.3
+"50","MO",6113532,"Property.Crime",2833.9
+"51","MS",2984100,"Violent.Crime",285.7
+"52","MS",2984100,"Property.Crime",2733.9
+"53","MT",1050493,"Violent.Crime",377.1
+"54","MT",1050493,"Property.Crime",2591.6
+"55","NC",10273419,"Violent.Crime",363.7
+"56","NC",10273419,"Property.Crime",2545.3
+"57","ND",755393,"Violent.Crime",281.3
+"58","ND",755393,"Property.Crime",2197.8
+"59","NE",1920076,"Violent.Crime",305.9
+"60","NE",1920076,"Property.Crime",2274
+"61","NH",1342795,"Violent.Crime",198.7
+"62","NH",1342795,"Property.Crime",1381.8
+"63","NJ",9005644,"Violent.Crime",228.8
+"64","NJ",9005644,"Property.Crime",1555.5
+"65","NM",2088070,"Violent.Crime",783.5
+"66","NM",2088070,"Property.Crime",3941.7
+"67","NV",2998039,"Violent.Crime",555.9
+"68","NV",2998039,"Property.Crime",2612.4
+"69","NY",19849399,"Violent.Crime",356.7
+"70","NY",19849399,"Property.Crime",1514.2
+"71","OH",11658609,"Violent.Crime",297.5
+"72","OH",11658609,"Property.Crime",2419.1
+"73","OK",3930864,"Violent.Crime",456.2
+"74","OK",3930864,"Property.Crime",2876.4
+"75","OR",4142776,"Violent.Crime",281.8
+"76","OR",4142776,"Property.Crime",2986.5
+"77","PA",12805537,"Violent.Crime",313.3
+"78","PA",12805537,"Property.Crime",1649.4
+"79","RI",1059639,"Violent.Crime",232.2
+"80","RI",1059639,"Property.Crime",1751.6
+"81","SC",5024369,"Violent.Crime",506.2
+"82","SC",5024369,"Property.Crime",3195.9
+"83","SD",869666,"Violent.Crime",433.6
+"84","SD",869666,"Property.Crime",1876.2
+"85","TN",6715984,"Violent.Crime",651.5
+"86","TN",6715984,"Property.Crime",2940.6
+"87","TX",28304596,"Violent.Crime",438.9
+"88","TX",28304596,"Property.Crime",2562.6
+"89","UT",3101833,"Violent.Crime",238.9
+"90","UT",3101833,"Property.Crime",2780.2
+"91","VA",8470020,"Violent.Crime",208.2
+"92","VA",8470020,"Property.Crime",1792.9
+"93","VT",623657,"Violent.Crime",165.8
+"94","VT",623657,"Property.Crime",1436.7
+"95","WA",7405743,"Violent.Crime",304.5
+"96","WA",7405743,"Property.Crime",3173.6
+"97","WI",5795483,"Violent.Crime",319.9
+"98","WI",5795483,"Property.Crime",1808.3
+"99","WV",1815857,"Violent.Crime",350.7
+"100","WV",1815857,"Property.Crime",1852
+"101","WY",579315,"Violent.Crime",237.5
+"102","WY",579315,"Property.Crime",1830.4
