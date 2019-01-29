@@ -1,103 +1,103 @@
-"","State","Population","Offense","Rate"
-"1","AK",739795,"Violent.Crime",829
-"2","AK",739795,"Property.Crime",3542.1
-"3","AL",4874747,"Violent.Crime",524.2
-"4","AL",4874747,"Property.Crime",2957.3
-"5","AR",3004279,"Violent.Crime",554.9
-"6","AR",3004279,"Property.Crime",3078.6
-"7","AZ",7016270,"Violent.Crime",508
-"8","AZ",7016270,"Property.Crime",2914.9
-"9","CA",39536653,"Violent.Crime",449.3
-"10","CA",39536653,"Property.Crime",2496.7
-"11","CO",5607154,"Violent.Crime",368.1
-"12","CO",5607154,"Property.Crime",2701.6
-"13","CT",3588184,"Violent.Crime",228
-"14","CT",3588184,"Property.Crime",1769.9
-"15","DC",693972,"Violent.Crime",1004.9
-"16","DC",693972,"Property.Crime",4283.9
-"17","DE",961939,"Violent.Crime",453.4
-"18","DE",961939,"Property.Crime",2440.6
-"19","FL",20984400,"Violent.Crime",408
-"20","FL",20984400,"Property.Crime",2512.4
-"21","GA",10429379,"Violent.Crime",357.2
-"22","GA",10429379,"Property.Crime",2860.2
-"23","HI",1427538,"Violent.Crime",250.6
-"24","HI",1427538,"Property.Crime",2829.5
-"25","IA",3145711,"Violent.Crime",293.4
-"26","IA",3145711,"Property.Crime",2125.3
-"27","ID",1716943,"Violent.Crime",226.4
-"28","ID",1716943,"Property.Crime",1635.4
-"29","IL",12802023,"Violent.Crime",438.8
-"30","IL",12802023,"Property.Crime",2011.4
-"31","IN",6666818,"Violent.Crime",399
-"32","IN",6666818,"Property.Crime",2416.9
-"33","KS",2913123,"Violent.Crime",413
-"34","KS",2913123,"Property.Crime",2800.9
-"35","KY",4454189,"Violent.Crime",225.8
-"36","KY",4454189,"Property.Crime",2129.1
-"37","LA",4684333,"Violent.Crime",557
-"38","LA",4684333,"Property.Crime",3366.8
-"39","MA",6859819,"Violent.Crime",358
-"40","MA",6859819,"Property.Crime",1437
-"41","MD",6052177,"Violent.Crime",500.2
-"42","MD",6052177,"Property.Crime",2222.3
-"43","ME",1335907,"Violent.Crime",121
-"44","ME",1335907,"Property.Crime",1507.1
-"45","MI",9962311,"Violent.Crime",450
-"46","MI",9962311,"Property.Crime",1800
-"47","MN",5576606,"Violent.Crime",238.3
-"48","MN",5576606,"Property.Crime",2191.5
-"49","MO",6113532,"Violent.Crime",530.3
-"50","MO",6113532,"Property.Crime",2833.9
-"51","MS",2984100,"Violent.Crime",285.7
-"52","MS",2984100,"Property.Crime",2733.9
-"53","MT",1050493,"Violent.Crime",377.1
-"54","MT",1050493,"Property.Crime",2591.6
-"55","NC",10273419,"Violent.Crime",363.7
-"56","NC",10273419,"Property.Crime",2545.3
-"57","ND",755393,"Violent.Crime",281.3
-"58","ND",755393,"Property.Crime",2197.8
-"59","NE",1920076,"Violent.Crime",305.9
-"60","NE",1920076,"Property.Crime",2274
-"61","NH",1342795,"Violent.Crime",198.7
-"62","NH",1342795,"Property.Crime",1381.8
-"63","NJ",9005644,"Violent.Crime",228.8
-"64","NJ",9005644,"Property.Crime",1555.5
-"65","NM",2088070,"Violent.Crime",783.5
-"66","NM",2088070,"Property.Crime",3941.7
-"67","NV",2998039,"Violent.Crime",555.9
-"68","NV",2998039,"Property.Crime",2612.4
-"69","NY",19849399,"Violent.Crime",356.7
-"70","NY",19849399,"Property.Crime",1514.2
-"71","OH",11658609,"Violent.Crime",297.5
-"72","OH",11658609,"Property.Crime",2419.1
-"73","OK",3930864,"Violent.Crime",456.2
-"74","OK",3930864,"Property.Crime",2876.4
-"75","OR",4142776,"Violent.Crime",281.8
-"76","OR",4142776,"Property.Crime",2986.5
-"77","PA",12805537,"Violent.Crime",313.3
-"78","PA",12805537,"Property.Crime",1649.4
-"79","RI",1059639,"Violent.Crime",232.2
-"80","RI",1059639,"Property.Crime",1751.6
-"81","SC",5024369,"Violent.Crime",506.2
-"82","SC",5024369,"Property.Crime",3195.9
-"83","SD",869666,"Violent.Crime",433.6
-"84","SD",869666,"Property.Crime",1876.2
-"85","TN",6715984,"Violent.Crime",651.5
-"86","TN",6715984,"Property.Crime",2940.6
-"87","TX",28304596,"Violent.Crime",438.9
-"88","TX",28304596,"Property.Crime",2562.6
-"89","UT",3101833,"Violent.Crime",238.9
-"90","UT",3101833,"Property.Crime",2780.2
-"91","VA",8470020,"Violent.Crime",208.2
-"92","VA",8470020,"Property.Crime",1792.9
-"93","VT",623657,"Violent.Crime",165.8
-"94","VT",623657,"Property.Crime",1436.7
-"95","WA",7405743,"Violent.Crime",304.5
-"96","WA",7405743,"Property.Crime",3173.6
-"97","WI",5795483,"Violent.Crime",319.9
-"98","WI",5795483,"Property.Crime",1808.3
-"99","WV",1815857,"Violent.Crime",350.7
-"100","WV",1815857,"Property.Crime",1852
-"101","WY",579315,"Violent.Crime",237.5
-"102","WY",579315,"Property.Crime",1830.4
+"","State","Population","Offense","Rate","region"
+"1","AK",739795,"Violent.Crime",829,"alaska"
+"2","AK",739795,"Property.Crime",3542.1,"alaska"
+"3","AL",4874747,"Violent.Crime",524.2,"alabama"
+"4","AL",4874747,"Property.Crime",2957.3,"alabama"
+"5","AR",3004279,"Violent.Crime",554.9,"arkansas"
+"6","AR",3004279,"Property.Crime",3078.6,"arkansas"
+"7","AZ",7016270,"Violent.Crime",508,"arizona"
+"8","AZ",7016270,"Property.Crime",2914.9,"arizona"
+"9","CA",39536653,"Violent.Crime",449.3,"california"
+"10","CA",39536653,"Property.Crime",2496.7,"california"
+"11","CO",5607154,"Violent.Crime",368.1,"colorado"
+"12","CO",5607154,"Property.Crime",2701.6,"colorado"
+"13","CT",3588184,"Violent.Crime",228,"connecticut"
+"14","CT",3588184,"Property.Crime",1769.9,"connecticut"
+"15","DC",693972,"Violent.Crime",1004.9,"district of columbia"
+"16","DC",693972,"Property.Crime",4283.9,"district of columbia"
+"17","DE",961939,"Violent.Crime",453.4,"delaware"
+"18","DE",961939,"Property.Crime",2440.6,"delaware"
+"19","FL",20984400,"Violent.Crime",408,"florida"
+"20","FL",20984400,"Property.Crime",2512.4,"florida"
+"21","GA",10429379,"Violent.Crime",357.2,"georgia"
+"22","GA",10429379,"Property.Crime",2860.2,"georgia"
+"23","HI",1427538,"Violent.Crime",250.6,"hawaii"
+"24","HI",1427538,"Property.Crime",2829.5,"hawaii"
+"25","IA",3145711,"Violent.Crime",293.4,"iowa"
+"26","IA",3145711,"Property.Crime",2125.3,"iowa"
+"27","ID",1716943,"Violent.Crime",226.4,"idaho"
+"28","ID",1716943,"Property.Crime",1635.4,"idaho"
+"29","IL",12802023,"Violent.Crime",438.8,"illinois"
+"30","IL",12802023,"Property.Crime",2011.4,"illinois"
+"31","IN",6666818,"Violent.Crime",399,"indiana"
+"32","IN",6666818,"Property.Crime",2416.9,"indiana"
+"33","KS",2913123,"Violent.Crime",413,"kansas"
+"34","KS",2913123,"Property.Crime",2800.9,"kansas"
+"35","KY",4454189,"Violent.Crime",225.8,"kentucky"
+"36","KY",4454189,"Property.Crime",2129.1,"kentucky"
+"37","LA",4684333,"Violent.Crime",557,"louisiana"
+"38","LA",4684333,"Property.Crime",3366.8,"louisiana"
+"39","MA",6859819,"Violent.Crime",358,"massachusetts"
+"40","MA",6859819,"Property.Crime",1437,"massachusetts"
+"41","MD",6052177,"Violent.Crime",500.2,"maryland"
+"42","MD",6052177,"Property.Crime",2222.3,"maryland"
+"43","ME",1335907,"Violent.Crime",121,"maine"
+"44","ME",1335907,"Property.Crime",1507.1,"maine"
+"45","MI",9962311,"Violent.Crime",450,"michigan"
+"46","MI",9962311,"Property.Crime",1800,"michigan"
+"47","MN",5576606,"Violent.Crime",238.3,"minnesota"
+"48","MN",5576606,"Property.Crime",2191.5,"minnesota"
+"49","MO",6113532,"Violent.Crime",530.3,"missouri"
+"50","MO",6113532,"Property.Crime",2833.9,"missouri"
+"51","MS",2984100,"Violent.Crime",285.7,"mississippi"
+"52","MS",2984100,"Property.Crime",2733.9,"mississippi"
+"53","MT",1050493,"Violent.Crime",377.1,"montana"
+"54","MT",1050493,"Property.Crime",2591.6,"montana"
+"55","NC",10273419,"Violent.Crime",363.7,"north carolina"
+"56","NC",10273419,"Property.Crime",2545.3,"north carolina"
+"57","ND",755393,"Violent.Crime",281.3,"north dakota"
+"58","ND",755393,"Property.Crime",2197.8,"north dakota"
+"59","NE",1920076,"Violent.Crime",305.9,"nebraska"
+"60","NE",1920076,"Property.Crime",2274,"nebraska"
+"61","NH",1342795,"Violent.Crime",198.7,"new hampshire"
+"62","NH",1342795,"Property.Crime",1381.8,"new hampshire"
+"63","NJ",9005644,"Violent.Crime",228.8,"new jersey"
+"64","NJ",9005644,"Property.Crime",1555.5,"new jersey"
+"65","NM",2088070,"Violent.Crime",783.5,"new mexico"
+"66","NM",2088070,"Property.Crime",3941.7,"new mexico"
+"67","NV",2998039,"Violent.Crime",555.9,"nevada"
+"68","NV",2998039,"Property.Crime",2612.4,"nevada"
+"69","NY",19849399,"Violent.Crime",356.7,"new york"
+"70","NY",19849399,"Property.Crime",1514.2,"new york"
+"71","OH",11658609,"Violent.Crime",297.5,"ohio"
+"72","OH",11658609,"Property.Crime",2419.1,"ohio"
+"73","OK",3930864,"Violent.Crime",456.2,"oklahoma"
+"74","OK",3930864,"Property.Crime",2876.4,"oklahoma"
+"75","OR",4142776,"Violent.Crime",281.8,"oregon"
+"76","OR",4142776,"Property.Crime",2986.5,"oregon"
+"77","PA",12805537,"Violent.Crime",313.3,"pennsylvania"
+"78","PA",12805537,"Property.Crime",1649.4,"pennsylvania"
+"79","RI",1059639,"Violent.Crime",232.2,"rhode island"
+"80","RI",1059639,"Property.Crime",1751.6,"rhode island"
+"81","SC",5024369,"Violent.Crime",506.2,"south carolina"
+"82","SC",5024369,"Property.Crime",3195.9,"south carolina"
+"83","SD",869666,"Violent.Crime",433.6,"south dakota"
+"84","SD",869666,"Property.Crime",1876.2,"south dakota"
+"85","TN",6715984,"Violent.Crime",651.5,"tennessee"
+"86","TN",6715984,"Property.Crime",2940.6,"tennessee"
+"87","TX",28304596,"Violent.Crime",438.9,"texas"
+"88","TX",28304596,"Property.Crime",2562.6,"texas"
+"89","UT",3101833,"Violent.Crime",238.9,"utah"
+"90","UT",3101833,"Property.Crime",2780.2,"utah"
+"91","VA",8470020,"Violent.Crime",208.2,"virginia"
+"92","VA",8470020,"Property.Crime",1792.9,"virginia"
+"93","VT",623657,"Violent.Crime",165.8,"vermont"
+"94","VT",623657,"Property.Crime",1436.7,"vermont"
+"95","WA",7405743,"Violent.Crime",304.5,"washington"
+"96","WA",7405743,"Property.Crime",3173.6,"washington"
+"97","WI",5795483,"Violent.Crime",319.9,"wisconsin"
+"98","WI",5795483,"Property.Crime",1808.3,"wisconsin"
+"99","WV",1815857,"Violent.Crime",350.7,"west virginia"
+"100","WV",1815857,"Property.Crime",1852,"west virginia"
+"101","WY",579315,"Violent.Crime",237.5,"wyoming"
+"102","WY",579315,"Property.Crime",1830.4,"wyoming"
