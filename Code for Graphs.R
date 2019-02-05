@@ -52,9 +52,15 @@ ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map 
 ggplot(FBICrime2, aes(x = State, y = Rate)) + geom_point() + facet_wrap(vars(Offense)) + coord_flip()
 
 ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
-  geom_map(aes(fill = Rate, map_id = region), map = States, data = FBICrime2, color = "#ffffff", size = 0.15) + 
-  facet_wrap(vars(Offense)) + scale_fill_gradient2(name = "RateOfCrime", low = "blue", mid = "purple", high = "red") +
-  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Violent and Property Crime by State, 2017") +
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Violent_Crime, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Violent Crime by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Property_Crime, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Property Crime by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
 #Plotting CrimePoverty (Do an annotate with the regression equation and show prediction intervals)
