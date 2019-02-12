@@ -1,0 +1,109 @@
+---
+title: "FBI Crime Capstone Project Statistics Report"
+author: "Ankita Hanmiah"
+date: "February 7, 2019"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+##FBI Crime and Poverty Data Analysis
+#The crime data provided by the FBI UCR website and the poverty data provided by the US Census website was cleaned and reorganized into three separate data sets: "FBICrime", "FBICrime2", and "CrimePoverty" The 10x10 tibbles below depict how each is broken down:
+
+#The FBI crime data for 2017 arranged by state. The Offense column contains the type of crime committed, while the Rate column shows the rate of that particular crime. The category of crime that the criminal offense falls under--violent or property--is listed under the Crime column.
+
+```{r FBICrime}
+FBICrime[c(1:10), ]
+```
+
+#In FBICrime2, violent and property crime were separated out into their own data set. 
+
+```{r FBICrime2}
+FBICrime2[c(1:10), ]
+```
+
+#And in CrimePoverty, the calculated total average crime rate for each state was combined with state poverty data for 2017--containing the number of impoverished people counted for within each state and the rate of poverty.
+
+```{r CrimePoverty}
+CrimePoverty[c(1:10), ]
+```
+
+#Looking at these data sets, some of the things that can be explored are:
+
+#The relationship between crime and poverty. Here crime is plotted against poverty in a linear regression model. The graph shows a positive correlation between poverty and crime.
+```{r CrimeVsPoverty, echo = FALSE}
+dat <- data.frame(Poverty.Rate = CrimePoverty$Poverty.Rate, Average.Crime.Rate = CrimePoverty$Average.Crime.Rate)
+CrimePov.lm <- lm(data = dat, formula = Average.Crime.Rate ~ Poverty.Rate)
+cppi <- cbind(CrimePoverty, predict(CrimePov.lm, interval = "prediction"))
+p <- ggplot(cppi, aes(x = Poverty.Rate)) + geom_point(aes(y = Average.Crime.Rate), size = 3) + geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi, aes(x = Poverty.Rate, y = upr)) + geom_line(aes(x = Poverty.Rate, y = lwr)) 
+p + annotate("text", label = "y = 20.42x + 133.30", x = 10.0, y = 725, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Average Crime Rate versus Poverty Rate of the United States for 2017")
+```
+
+
+#The comparisons between the rates of different categories of crime (violent crime and property crime) mapped out on a map of the United States with the rate of crime corresponding lower rates to lighter shades of blue and higher rates to darker blues. 
+
+```{r ViolentPropertyMap, echo = FALSE}
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Violent_Crime, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Violent Crime by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Property_Crime, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Property Crime by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+```
+
+#The rate of crime between states for each of the different types of criminal offenses. Each of the maps is for a different criminal offense and the rates of crime once again correspond colorwise with lighter shades for lower rates to darker shades for higher rates. 
+
+```{r CrimeMaps, echo = FALSE}
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Assault, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Aggravated Assault by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Burglary, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Burglary by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Larceny, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Larceny by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Murder, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Murder by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Rape, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Rape by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Robbery, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Robbery by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Theft, color = "#ffffff", size = 0.15) + 
+  scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + labs(x = NULL, y = NULL, title = "Rate of Theft by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+```
+
+##Possibilities for Further Investigation
+#It would be interesting to look further into the crime rates within the states and observe metropolitan versus non-metropolitan crime and poverty. Since there is a positive correlation on an overall state scale between crime rates and poverty, it would be interesting to look at whether or not this continues to show at counties or cities level. Are the poverty rates higher in urban areas or rural? And do higher rates of crime actually follow wherever higher poverty rates are found?
+#For further study, it would also be interesting to include other years of crime data and build a time series plots to look at how levels of crime has changed over the years at a national level but also at a state level, observing the increase or decrease of crime over time for all the states.
