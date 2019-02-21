@@ -1,0 +1,201 @@
+---
+title: "FBI Crime Capstone Project Milestone Report"
+author: "Ankita Hanmiah"
+date: "February 7, 2019"
+output:
+  html_document: default
+  word_document: default
+---
+
+###Introduction
+The Federal Bureau of Investigation's Uniform Crime Reporting program contains a plethora of data intended to provide information to law enforcement administration and the public on the prevalence of different crimes throughout the United States. There are four separate collections of data: national incidents, crimes against law enforcement officials, hate crimes, and general crime. In this project, the  focus is on violent and property crime, and with the intention of answering the following questions: which states are these crimes most prevalent in? Which are "safest"" states and the most "dangerous"? Is there a relationship between violent and property crime? And does poverty share a relationship with crime?
+
+This information would be beneficial for people, probably starting a family, looking for a place to put down roots that is safe for their family, or at the very least so that they may be informed and aware of the kind of crime that is most prevalent where they live. This would also be useful for law enforcement and state governments, so that they may be able to more thoroughly understand the most widespread crime-related, and possibly poverty-related, issues within their jurisdiction. This information could help them build new laws, programs or make reforms that move towards preventing these kinds of crimes within their state. 
+
+###Data and Data Wrangling
+The original crime data from the FBI UCR (FBI Crime Data - State and Region (Original).csv) and the poverty data from Census (Poverty_State2017 (Original).csv) was reorganized into three separate data sets: "FBICrime"(CrimeByState&Offenses.csv), "FBICrime2"(Violent&PropertyCrime.csv), and "CrimePoverty"(Crime&PovertyByState.csv):
+```{r}
+library(tidyverse)
+
+FBICrime <- read_csv("FBI Crime Data - State and Region (Original).csv")
+Poverty <- read_csv("Poverty_State2017 (Original).csv")
+
+#With the poverty data, the columns to be used in this project were subset and renamed
+poverty_names <- make.names(c("State", "Poverty Count", "Poverty Rate"))
+Poverty <- Poverty[c("State / County Name", "All Ages in Poverty Count", "All Ages in Poverty Percent")] %>% 
+  setNames(poverty_names)
+Poverty$State <- tolower(Poverty$State)
+
+#The unnecessary data, extra rows, and empty columns were removed and the states, population, and crime data for 2017 was isolated
+#Column names and certain state names were adjusted
+FBICrime <- FBICrime %>% 
+  fill(Area) %>% 
+  filter(Year != "Percent change", Year != "2016", !is.na(Year)) %>% 
+  filter(!(Area %in% c("United States Total5, 6", "Puerto Rico", "Pacific", "Mountain", "West", "West South Central", "East South Central", "South Atlantic5,6", "South5,6", "West North Central", "East North Central", "Midwest", "Middle Atlantic", "Northeast", "New England"))) %>%
+  arrange(Area)
+
+column_names <- make.names(c("State", "Population", "Violent Crime", "Murder", "Rape", "Robbery", "Aggravated Assault", "Property Crime", "Burglary", "Larceny", "Motor Vehicle Theft"))
+FBICrime <- FBICrime %>% 
+  select(Area, Population2, starts_with("X"), -X22, -X23, -X24) %>% 
+  setNames(column_names)
+
+FBICrime$State[FBICrime$State %in% "District of Columbia5"] <- c("District of Columbia")
+FBICrime$State[FBICrime$State %in% "North Carolina6"] <- c("North Carolina")
+
+#Gathered the crimes into an offense column and separated rate to use for further wrangling
+#Converted rates and population to numeric values after removing commas
+FBICrime <- FBICrime %>% 
+  gather("Offense", "Rate", Violent.Crime:Motor.Vehicle.Theft)
+FBICrime$Rate <- gsub(",", "", FBICrime$Rate) %>% as.numeric(FBICrime$Rate)
+FBICrime$Population <- gsub(",", "", FBICrime$Population) %>% 
+  as.numeric(FBICrime$Population)
+FBICrime$State <- tolower(FBICrime$State)
+
+#Filtered Violent Crime and Property Crime into a separate data frame and removed them from the original dataset
+#Spread out the offenses and rates in FBICrime to prepare the data for plotting and statistics
+Violent_Crime <- filter(FBICrime, Offense == c("Violent.Crime"))
+Property_Crime <- filter(FBICrime, Offense == c("Property.Crime"))
+FBICrime2 <- bind_rows(Violent_Crime, Property_Crime) %>% 
+  arrange(State)
+
+FBICrime <- FBICrime %>% 
+  spread(Offense, Rate) %>%
+  select(-Violent.Crime, -Property.Crime)
+
+#Created a separate dataset containing average total crime rates per state to append to the poverty data
+#Spread out the offenses and rates in FBICrime2 to prepare the data for plotting and statistics
+AvgStateRate <- FBICrime2 %>% 
+  group_by(State) %>% 
+  summarise(Average.Crime.Rate = mean(Rate))
+FBICrime2 <- FBICrime2 %>% spread(Offense, Rate)
+
+#Appended the average crime rates with the poverty data and adjusted decimal places
+CrimePoverty <- left_join(AvgStateRate, Poverty, by = "State")
+is.num <- sapply(CrimePoverty, is.numeric)
+CrimePoverty[is.num] <- lapply(CrimePoverty[is.num], round, 1)
+
+#Saved the three datasets to csv files
+write.csv(FBICrime, file = "CrimeByState&Offenses.csv")
+write.csv(FBICrime2, file = "Violent&PropertyCrime.csv")
+write.csv(CrimePoverty, file = "Crime&PovertyByState.csv")
+```
+
+###Exploratory Data Analysis and Predictive Statistics
+
+Looking at these data sets, some of the things that can be explored are comparisons between the rates of different categories of crime (violent crime and property crime), as well as the rate of crime between states for each of the different criminal offenses. To be able to visually see which states are most affected, the rates were mapped onto the fifty states: the higher rates are black and darker shades of green while the lower rates are lighter shades of teal. 
+
+```{r ViolentPropertyMap, echo = FALSE}
+library(fiftystater)
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Violent.Crime, map_id = State), map = fifty_states, data = FBICrime2, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Violent Crime by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Property.Crime, map_id = State), map = fifty_states, data = FBICrime2, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Property Crime by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+```
+
+
+```{r CrimeMaps, echo = FALSE}
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Aggravated.Assault, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Aggravated Assault by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) +
+  geom_map(aes(fill = Burglary, map_id = State), map = fifty_states, data = FBICrime, size = 0.15, color = "grey40") + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Burglary by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Larceny, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Larceny by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Murder, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Murder by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Rape, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Rape by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Robbery, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Robbery by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Motor.Vehicle.Theft, map_id = State), map =fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Motor Vehicle Theft by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+```
+
+###The minimums and maximums for each of the criminal offenses
+```{r MinMaxOffenses}
+FBICrime <- FBICrime %>% gather(Offense, Rate, Aggravated.Assault:Robbery) %>% group_by(Offense)
+
+min.crime <- FBICrime %>%
+  filter(Rate == min(Rate))
+min.crime
+
+max.crime <- FBICrime %>%
+  filter(Rate == max(Rate))
+max.crime
+```
+
+###The relationship between crime and poverty with a linear regression model
+```{r CrimeVsPoverty}
+dat <- data.frame(Poverty.Rate = CrimePoverty$Poverty.Rate, Average.Crime.Rate = CrimePoverty$Average.Crime.Rate)
+CrimePov.lm <- lm(data = dat, formula = Average.Crime.Rate ~ Poverty.Rate)
+cppi <- cbind(CrimePoverty, predict(CrimePov.lm, interval = "prediction"))
+
+p <- ggplot(cppi, aes(x = Poverty.Rate)) + geom_point(aes(y = Average.Crime.Rate), size = 2) + geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi, aes(x = Poverty.Rate, y = upr)) + geom_line(aes(x = Poverty.Rate, y = lwr))
+p + annotate("text", label = "y = 20.42x + 133.30", x = 10.0, y = 2500, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Average Crime Rate versus Poverty Rate of the United States for 2017")
+
+cor(x = CrimePoverty$Poverty.Rate, y = CrimePoverty$Average.Crime.Rate)
+
+cp.lm <- lm(data = CrimePoverty, Average.Crime.Rate ~ Poverty.Rate)
+summary(cp.lm)
+cp.lm$residuals
+cp.SSE <- sum(cp.lm$residuals^2)
+cp.SSE
+```
+
+###The relationship between violent and property crime with a linear regression model
+```{r ViolentVsProperty}
+dat1 <- data.frame(Violent.Crime = FBICrime2$Violent.Crime, Property.Crime = FBICrime2$Property.Crime)
+VPCrime.lm <- lm(data = dat1, formula = Property.Crime ~ Violent.Crime)
+cppi1 <- cbind(FBICrime2, predict(VPCrime.lm, interval = "prediction"))
+
+vp <- ggplot(cppi1, aes(x = Violent.Crime)) + geom_point(aes(y = Property.Crime), size = 2) + geom_smooth(aes(y = Property.Crime), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi1, aes(x = Violent.Crime, y = upr)) + geom_line(aes(x = Violent.Crime, y = lwr))
+vp + annotate("text", label = "y = 2.91x + 1280.94", x = 200, y = 4500, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Property Crime versus Violent Crime in the United States, 2017")
+
+cor(x = FBICrime2$Violent.Crime, y = FBICrime2$Property.Crime)
+
+vp.lm <- lm(data = FBICrime2, Property.Crime ~ Violent.Crime)
+summary(vp.lm)
+vp.lm$residuals
+vp.SSE <- sum(vp.lm$residuals^2)
+vp.SSE
+```
+
+#Conclusion
+
+###Possibilities for Further Investigation
+It would be interesting to look further into the crime rates within the states and observe metropolitan versus non-metropolitan crime and poverty. Since there is a positive correlation on an overall state scale between crime rates and poverty, it would be interesting to look at whether or not this continues to show at counties or cities level. Are the poverty rates higher in urban areas or rural? And do higher rates of crime actually follow wherever higher poverty rates are found?
+For further study, it would also be interesting to include other years of crime data and build a time series plots to look at how levels of crime has changed over the years at a national level but also at a state level, observing the increase or decrease of crime over time for all the states.

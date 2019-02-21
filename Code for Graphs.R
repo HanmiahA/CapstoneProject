@@ -6,6 +6,13 @@ States <- map_data("state")
 
 # Plotting FBI Crime (use geom_map to show the rate per offense)
 
+breaks <- quantile(FBICrime$Rate, seq(0,1, length.out =15))
+cols <- colorRampPalette(c("#55FFFF", "grey10"))(15)
+ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#55FFFF", color = "#55FFFF", size = 0.15) + 
+  geom_map(aes(fill = Rate, map_id = region), map = States, data = Assault, color = "#55FFFF", size = 0.15) + 
+  scale_fill_manual(name = "RateOfCrime", values = cols, breaks = breaks)
+  
+
 ggplot() + geom_map(aes(x = long, y = lat, map_id = region), data = States, map = States, fill = "#ffffff", color = "#ffffff", size = 0.15) + 
   geom_map(aes(fill = Rate, map_id = region), map = States, data = Assault, color = "#ffffff", size = 0.15) + 
   scale_fill_gradient2(name = "RateOfCrime", low = "grey50", mid = "cyan", high = "blue", midpoint = 0) +
@@ -69,7 +76,6 @@ dat <- data.frame(Poverty.Rate = CrimePoverty$Poverty.Rate, Average.Crime.Rate =
 CrimePov.lm <- lm(data = dat, formula = Average.Crime.Rate ~ Poverty.Rate)
 cppi <- cbind(CrimePoverty, predict(CrimePov.lm, interval = "prediction"))
 
-
-p <- ggplot(cppi, aes(x = Poverty.Rate)) + geom_ribbon(aes(ymin = lwr, ymax = upr), fill = "blue", alpha = 0.2) + geom_point(aes(y = Average.Crime.Rate), size = 3) + geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = FALSE, na.rm = TRUE)
+p <- ggplot(cppi, aes(x = Poverty.Rate)) + geom_point(aes(y = Average.Crime.Rate), size = 3) + geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi, aes(x = Poverty.Rate, y = upr)) + geom_line(aes(x = Poverty.Rate, y = lwr))
 p + annotate("text", label = "y = 20.42x + 133.30", x = 10.0, y = 725, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Average Crime Rate versus Poverty Rate of the United States for 2017")
 
