@@ -3,18 +3,22 @@ title: "FBI Crime Capstone Project Milestone Report"
 author: "Ankita Hanmiah"
 date: "February 7, 2019"
 output:
-  html_document: default
+  pdf_document: default
   word_document: default
 ---
 
 ###Introduction
-The Federal Bureau of Investigation's Uniform Crime Reporting program contains a plethora of data intended to provide information to law enforcement administration and the public on the prevalence of different crimes throughout the United States. There are four separate collections of data: national incidents, crimes against law enforcement officials, hate crimes, and general crime. In this project, the  focus is on violent and property crime, and with the intention of answering the following questions: which states are these crimes most prevalent in? Which are "safest"" states and the most "dangerous"? Is there a relationship between violent and property crime? And does poverty share a relationship with crime?
+The Federal Bureau of Investigation's Uniform Crime Reporting program contains a plethora of data intended to provide information to law enforcement administration and the public on the prevalence of different crimes throughout the United States. Crimes that come to their attention are compiled into four collections of data: national incidents, crimes against law enforcement officials, hate crimes, and general criminal offenses. In this project, the  focus is on general crime: violent and property crime. The intended questions to be answered are: which states are these crimes most prevalent in? Which are the "safest"" states and the most "dangerous"? Is there a relationship between violent and property crime? And does poverty share a relationship with crime?
 
-This information would be beneficial for people, probably starting a family, looking for a place to put down roots that is safe for their family, or at the very least so that they may be informed and aware of the kind of crime that is most prevalent where they live. This would also be useful for law enforcement and state governments, so that they may be able to more thoroughly understand the most widespread crime-related, and possibly poverty-related, issues within their jurisdiction. This information could help them build new laws, programs or make reforms that move towards preventing these kinds of crimes within their state. 
+This information would be beneficial for people, probably starting a family, who are looking for a place to put down roots that is safe for their family, or at the very least so that they may be informed and aware of the kind of crime that is most prevalent where they live. This would also be useful for law enforcement and state governments, so that they may be able to more thoroughly understand the current most widespread crime-related, and possibly poverty-related, issues within their jurisdiction. This information could help them build new laws, programs, or make reforms that move towards preventing these kinds of crimes within their state. 
 
 ###Data and Data Wrangling
-The original crime data from the FBI UCR (FBI Crime Data - State and Region (Original).csv) and the poverty data from Census (Poverty_State2017 (Original).csv) was reorganized into three separate data sets: "FBICrime"(CrimeByState&Offenses.csv), "FBICrime2"(Violent&PropertyCrime.csv), and "CrimePoverty"(Crime&PovertyByState.csv):
-```{r}
+The original crime data used for this project was collected from Table 4 of the 2017 FBI UCR (FBI Crime Data - State and Region (Original).csv). The FBI compiled 24 tables of data for their offenses, with different breakdowns of regions, states, counties, cities, metropolitan versus non-metropolitan areas, suburban versus non-suburban areas, generalized location of the offenses, weapons used in violent crime, time of day for property crime, and other circumstances. There is additional expanded data on specific crimes as well as clearance data, providing information on how the case was closed: whether or not an arrest was made or if there was another circumstantial close to the case. The table used for this project contained data on the counts and rates of different criminal offenses, as well as counts and rates for violent and property crime, for each state plus the District of Columbia. Violent crime is defined by the FBI as "offenses that involve force or threat of force" and encompasses murder and nonnegligent manslaughter, aggravated assault, rape, and robbery. Property crime is defined as "offenses in which there is no force or threat of force against the victims" and includes burglary, larceny, and motor vehicle theft. The crime dataset being used contains data for 2016 and 2017, though only 2017 will be used for this project to determine what the most current answers are, as this is most beneficial to families and law enforcement looking to make current decisions. 
+
+The poverty data (Poverty_State2017 (Original).csv) is compiled by Census using their measures of determining which families fall within the poverty limit. This is measured by using sets of income thresholds that differs based on the size of the family and their composition. The family's total income, before taxes and not including benefits, must be under the determined threshold for the family to be considered in poverty.   
+
+The data collected from the FBI UCR and Census was reorganized into three separate data sets: "FBICrime"(CrimeByState&Offenses.csv), "FBICrime2"(Violent&PropertyCrime.csv), and "CrimePoverty"(Crime&PovertyByState.csv):
+```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
 
 FBICrime <- read_csv("FBI Crime Data - State and Region (Original).csv")
@@ -80,122 +84,190 @@ write.csv(FBICrime2, file = "Violent&PropertyCrime.csv")
 write.csv(CrimePoverty, file = "Crime&PovertyByState.csv")
 ```
 
-###Exploratory Data Analysis and Predictive Statistics
+###Exploratory Data Analysis and Statistics
 
-Looking at these data sets, some of the things that can be explored are comparisons between the rates of different categories of crime (violent crime and property crime), as well as the rate of crime between states for each of the different criminal offenses. To be able to visually see which states are most affected, the rates were mapped onto the fifty states: the higher rates are black and darker shades of green while the lower rates are lighter shades of teal. 
+Looking at these data sets, some of the things that can be explored are comparisons between the rates of different categories of crime (violent crime and property crime), as well as the rate of crime between states for each of the different criminal offenses. To be able to visually see which states are most affected, the rates were mapped onto the fifty states: the higher rates are in brighter shades of teal whereas the lower rates are in shades of green leading to black. 
 
-```{r ViolentPropertyMap, echo = FALSE}
+```{r ViolentPropertyMap, warning = FALSE, message = FALSE}
 library(fiftystater)
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Violent.Crime, map_id = State), map = fifty_states, data = FBICrime2, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Violent Crime by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Property.Crime, map_id = State), map = fifty_states, data = FBICrime2, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Property Crime by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 ```
+These maps of generalized violent and property crime show that New Mexico and Alaska seem to have the highest rates of both violent and property crime. It can also be seen by the difference in scale and in the coloring that there are higher rates of property crime than violent and property crime is more highly widespread across the states than violent crime. Property crime seems to be most prevalent in the southern and western states, with the least amount in the northeast and parts of the midwest and mountain region, whereas violent crime is most prevalent in New Mexico, Alaska, and Tennesee, with mid to low rates across the rest of the states. 
 
+```{r CrimeMaps, warning = FALSE, message = FALSE}
 
-```{r CrimeMaps, echo = FALSE}
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
-  geom_map(aes(fill = Aggravated.Assault, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
-  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Aggravated Assault by State, 2017") +
-  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
-
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) +
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) +
   geom_map(aes(fill = Burglary, map_id = State), map = fifty_states, data = FBICrime, size = 0.15, color = "grey40") + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+ scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Burglary by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Larceny, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Larceny by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Motor.Vehicle.Theft, map_id = State), map =fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Motor Vehicle Theft by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+  geom_map(aes(fill = Aggravated.Assault, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
+  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Aggravated Assault by State, 2017") +
+  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
+
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Murder, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Murder by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Rape, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+ scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Rape by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
+ggplot() + 
+  geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) +
   geom_map(aes(fill = Robbery, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
+  scale_fill_gradient2(name = "Rate Per 100,000", low = "black", mid = "black", high = "#55FFFF") +
   coord_map() + labs(x = NULL, y = NULL, title = "Rate of Robbery by State, 2017") +
   theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 
-ggplot() + geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
-  geom_map(aes(fill = Motor.Vehicle.Theft, map_id = State), map =fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
-  scale_fill_gradient2(name = "Rate Per 100,000", low = "grey40", mid = "#55FFFF", high = "black") +
-  coord_map() + labs(x = NULL, y = NULL, title = "Rate of Motor Vehicle Theft by State, 2017") +
-  theme(axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_blank(), panel.border = element_blank())
 ```
+These maps depict the distribution of the individual criminal offenses throughout the states. Glancing at the rate scales, it can be seen that larceny seems to have a highest prevalence with rates in the thousands. 
 
-###The minimums and maximums for each of the criminal offenses
+For property crimes:
+
+Burglary shows high rates throughout the south, ranging from 500 to over 800 cases per 100,000, with the most highlighted states being New Mexico and Mississippi, followed by states like Oklahoma, Arkansas, and Louisiana. The lowest rates of burglary (ranging from below 200 to 250 per 100,000) seem to be in New York, New Hampshire, and Virginia.
+
+Larceny seems to show highest rates (2500 to 3500 per 100,000) in New Mexico, Louisiana, South Dakota, and Alaska but is fairly widespread throughout the United States and seems to be the most prevalent of the individual criminal offenses reported to the FBI. The lowest rates (below 1500 per 100,000) seem to be found in parts of New England/northeast regions, parts of the midwest (such as Wisconsin and Michigan), and Idaho.
+
+Motor vehicle theft seems to be most prevalent in New Mexico and Alaska (with rates over 500 per 100,000), followed by the west coast states (Washington, Oregon, California) in the 400 to 500 range, as well as Nevada and Colorado. The lowest rates (below 100) look to be in the New England/northeast states (Maine, New Hampshire, Vermont, New York, and Pennsylvania.
+
+For violent crimes:
+
+Aggravated assault seems to show its highest rates of over 500 cases per 100,000 in New Mexico, Alaska, and Tennessee, followed by 400 to 500 rates in Arkansas, Louisiana, Missouri, Alabama, South Carolina, and South Dakota. The lowest prevalence (below 100) seems to be in Maine, followed by 100 to 200 per 100,000 rates in New Hampshire, Vermont, Connecticut, New Jersey, Virginia, Kentucky, Ohio, Minnesota, and Utah.
+
+Murder seemes to be the least prevalent crime reported to the FBI with the lowest of crime rates at a range of 0 to over 16 cases per 100,000 people, showing mostly mid to low rates (from 0 to 12) throughout the United States. The higher murder rates are found in Louisiana, Nevada, Missouri, and Maryland. The lowest rates below 4 are seen in the New England/northeast region along with Hawaii, and states in the northern midwest and northwest such as Minnesota, North Dakota, Nebraska, Idaho, and Utah. 
+
+Rape shows highest prevalence rating over 100 per 100,000 in Alaska. Most other states show middle range rates (between 40 to 90 per 100,000) except for Connecticut and New Jersey, which stand out as the lowest rated states below 20, followed by Georgia and North Carolina in the 20 to 40 range.
+
+Robbery is fairly low on its scale throughout the United States with rates below 150 except for states like Nevada, New Mexico, Maryland, and Illinois where you can probably find rates over 200.
+
+###Minimums for each of the criminal offenses:
 ```{r MinMaxOffenses}
-FBICrime <- FBICrime %>% gather(Offense, Rate, Aggravated.Assault:Robbery) %>% group_by(Offense)
+FBICrime <- FBICrime %>% 
+  gather(Offense, Rate, Aggravated.Assault:Robbery) %>% 
+  group_by(Offense)
 
 min.crime <- FBICrime %>%
   filter(Rate == min(Rate))
 min.crime
+```
 
+###Maximums for each of the criminal offenses:
+```{r}
 max.crime <- FBICrime %>%
   filter(Rate == max(Rate))
 max.crime
 ```
+Here we have the exact minimum and maximum rated states for each criminal offense. The minimums--as we were able to observe from looking at the maps--are mostly in the New England/northeast regions, except for Idaho having the lowest rate of robberies. With maximums--again as seen on the maps--Alaska and New Mexico showed the highest rates for many of the crimes, specifically aggravated assault, burglary, motor vehicle theft, and rape. District of Columbia was not really visible on the map so it is interesting to observe that it shows the highest rates of larceny, murder, and robbery.
 
-###The relationship between crime and poverty with a linear regression model
-```{r CrimeVsPoverty}
+###The relationship between crime and poverty:
+```{r CrimeVsPoverty, warning = FALSE, message = FALSE}
 dat <- data.frame(Poverty.Rate = CrimePoverty$Poverty.Rate, Average.Crime.Rate = CrimePoverty$Average.Crime.Rate)
 CrimePov.lm <- lm(data = dat, formula = Average.Crime.Rate ~ Poverty.Rate)
 cppi <- cbind(CrimePoverty, predict(CrimePov.lm, interval = "prediction"))
 
-p <- ggplot(cppi, aes(x = Poverty.Rate)) + geom_point(aes(y = Average.Crime.Rate), size = 2) + geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi, aes(x = Poverty.Rate, y = upr)) + geom_line(aes(x = Poverty.Rate, y = lwr))
-p + annotate("text", label = "y = 20.42x + 133.30", x = 10.0, y = 2500, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Average Crime Rate versus Poverty Rate of the United States for 2017")
+p <- ggplot(cppi, aes(x = Poverty.Rate)) + 
+  geom_point(aes(y = Average.Crime.Rate), size = 2) + 
+  geom_smooth(aes(y = Average.Crime.Rate), method = lm, se = TRUE, na.rm = TRUE) + 
+  geom_line(data = cppi, aes(x = Poverty.Rate, y = upr)) + 
+  geom_line(aes(x = Poverty.Rate, y = lwr))
 
-cor(x = CrimePoverty$Poverty.Rate, y = CrimePoverty$Average.Crime.Rate)
-
-cp.lm <- lm(data = CrimePoverty, Average.Crime.Rate ~ Poverty.Rate)
-summary(cp.lm)
-cp.lm$residuals
-cp.SSE <- sum(cp.lm$residuals^2)
-cp.SSE
+p + annotate("text", label = "y = 20.42x + 133.30", x = 10.0, y = 2500, size = 4, color = "blue") + 
+  labs(x = "Rate of Poverty", y = "Average Crime Rate", title = "Average Crime Rate versus Poverty Rate of the United States for 2017")
 ```
 
-###The relationship between violent and property crime with a linear regression model
-```{r ViolentVsProperty}
+###Correlation coefficient for crime vs. poverty:
+```{r}
+cor(x = CrimePoverty$Poverty.Rate, y = CrimePoverty$Average.Crime.Rate)
+```
+
+###Linear regression model for crime vs. poverty:
+```{r}
+summary(CrimePov.lm)
+CrimePov.lm$residuals
+CrimePov.SSE <- sum(CrimePov.lm$residuals^2)
+sqrt(CrimePov.SSE/51)
+```
+
+The graph shows a positive relationship between the rate of poverty and average crime rate in the United States, so as the rate of poverty increases, the average crime rate appears to increase as well. On the graph, a 95% confidence interval and prediction interval are shown. The confidence interval shows the range within which there is a 95% probability that the actual observed average crime rate will be found. The prediction interval shows the estimated range within which it is probable that future predicted average crime rates will be found, based on the actual data observed. The correlation coefficient is a positive 0.510, which indicates that poverty rate and average crime rate are moderately related, but it is not close to a perfect positive relationship. This is backed up by the R squared value (0.2596), which was fairly low. The root mean squared errors value was 341.518.
+
+###The relationship between violent and property crime:
+```{r ViolentVsProperty, warning = FALSE, message = FALSE}
 dat1 <- data.frame(Violent.Crime = FBICrime2$Violent.Crime, Property.Crime = FBICrime2$Property.Crime)
 VPCrime.lm <- lm(data = dat1, formula = Property.Crime ~ Violent.Crime)
 cppi1 <- cbind(FBICrime2, predict(VPCrime.lm, interval = "prediction"))
 
-vp <- ggplot(cppi1, aes(x = Violent.Crime)) + geom_point(aes(y = Property.Crime), size = 2) + geom_smooth(aes(y = Property.Crime), method = lm, se = TRUE, na.rm = TRUE) + geom_line(data = cppi1, aes(x = Violent.Crime, y = upr)) + geom_line(aes(x = Violent.Crime, y = lwr))
-vp + annotate("text", label = "y = 2.91x + 1280.94", x = 200, y = 4500, size = 4, color = "blue") + labs(x = NULL, y = NULL, title = "Property Crime versus Violent Crime in the United States, 2017")
 
-cor(x = FBICrime2$Violent.Crime, y = FBICrime2$Property.Crime)
+vp <- ggplot(cppi1, aes(x = Violent.Crime)) + 
+  geom_point(aes(y = Property.Crime), size = 2) + 
+  geom_smooth(aes(y = Property.Crime), method = lm, se = TRUE, na.rm = TRUE) + 
+  geom_line(data = cppi1, aes(x = Violent.Crime, y = upr)) + 
+  geom_line(aes(x = Violent.Crime, y = lwr))
 
-vp.lm <- lm(data = FBICrime2, Property.Crime ~ Violent.Crime)
-summary(vp.lm)
-vp.lm$residuals
-vp.SSE <- sum(vp.lm$residuals^2)
-vp.SSE
+vp + annotate("text", label = "y = 2.91x + 1280.94", x = 200, y = 4500, size = 4, color = "blue") + 
+  labs(x = "Violent Crime Rate", y = "Property Crime Rate", title = "Property Crime versus Violent Crime in the United States, 2017")
+
 ```
 
+###Correlation coefficient for property crime vs. violent crime:
+```{r}
+cor(x = FBICrime2$Violent.Crime, y = FBICrime2$Property.Crime)
+```
+
+###Linear regression model for property crime vs. violent crime:
+```{r}
+summary(VPCrime.lm)
+VPCrime.lm$residuals
+VPCrime.SSE <- sum(VPCrime.lm$residuals^2)
+sqrt(VPCrime.SSE/51)
+```
+
+Again, with violent crime and property crime, we see a positive relationship showing that there does tend to be higher property crime wherever there is higher violent crime. Here the correlation coefficient is 0.7515, which indicates a fairly strong correlation. We see that the relationship is stronger than the one we saw between poverty and average crime. The R squared value is 0.5647, which again indicates that the relationship is fairly strong. The root mean squared errors value was 434.227.
+
 #Conclusion
+Through this project, we were able to look at the distributions of crime throughout the United States on the state level and determine which states could be considered "safer" and which "more dangerous", based on these distributions. For cautious families looking for a safer state to settle down in for the growing years of their children, they may want to veer away from states that currently have higher rates of violent crime. As we saw, there is a high prevalence of both violent and property crime in New Mexico, Alaska, and Washington D.C. For people owning homes and vehicles, it may be of value for them to know that these states, as well as the west coast and south, have a higher spread of property crimes--being aware would allow people to invest in cautious measures of protection, like a home security system. 
+
+For law enforcement branches and state governments, this project provides information on how their state compares to others, and what their problem areas are. New Mexico showed the highest rate of burglary but also one of the highest for motor vehicle theft, aggravated assault, and larceny. Knowing where the problem specifically lies allows for programs and measures to be put in place. Knowing the relationship between violent and property crime and also crime and poverty allows for an understanding of how best to approach the problems on a larger scale moving forward, as well. Figuring out what drives people to commit crimes is an important part of preventing crimes, because you do not want to allow others in similar situations to follow the same path. The correlation between poverty and crime, as small as it may be, gives an indication of people who are pushed to commit crimes possibly out of desperation or out of frustration of their own conditions.  
 
 ###Possibilities for Further Investigation
-It would be interesting to look further into the crime rates within the states and observe metropolitan versus non-metropolitan crime and poverty. Since there is a positive correlation on an overall state scale between crime rates and poverty, it would be interesting to look at whether or not this continues to show at counties or cities level. Are the poverty rates higher in urban areas or rural? And do higher rates of crime actually follow wherever higher poverty rates are found?
-For further study, it would also be interesting to include other years of crime data and build a time series plots to look at how levels of crime has changed over the years at a national level but also at a state level, observing the increase or decrease of crime over time for all the states.
+It would be interesting to delve deeper into the data provided by the FBI and look further into the crime rates within the states to observe metropolitan versus non-metropolitan crime and poverty. Since there is some positive correlation on an overall state scale between crime rates and poverty, it would be interesting to look at whether or not this continues to show at a county or city level. Are the poverty rates higher in urban areas or rural? And do higher rates of crime follow wherever higher poverty rates are found within these specifically defined areas? 
+
+For further study, it would also be interesting to include other years of crime data and build a time series plot to look at how levels of crime has changed over the years at a national level but also at a state level, observing the increase or decrease of crime over time for all the states. This would also help to observe the trend of crime over the years to allow for making predictions of where crime rates are heading in the future and whether or not certain actions being taken are making a difference in bringing rates down.
