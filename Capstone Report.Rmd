@@ -124,7 +124,7 @@ ggplot() +
 
 Burglary shows high rates throughout the south, ranging from 500 to over 800 cases per 100,000, with the most highlighted states being New Mexico and Mississippi, followed by states like Oklahoma, Arkansas, and Louisiana. The lowest rates of burglary (ranging from below 200 to 250 per 100,000) seem to be in New York, New Hampshire, and Virginia.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Larceny, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
@@ -135,7 +135,7 @@ ggplot() +
 
 Larceny seems to show highest rates (2500 to 3500 per 100,000) in New Mexico, Louisiana, South Dakota, and Alaska but is fairly widespread throughout the United States and seems to be the most prevalent of the individual criminal offenses reported to the FBI. The lowest rates (below 1500 per 100,000) seem to be found in parts of New England/northeast regions, parts of the midwest (such as Wisconsin and Michigan), and Idaho.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Motor.Vehicle.Theft, map_id = State), map =fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
@@ -148,7 +148,7 @@ Motor vehicle theft seems to be most prevalent in New Mexico and Alaska (with ra
 
 For violent crimes:
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Aggravated.Assault, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
@@ -159,7 +159,7 @@ ggplot() +
 
 Aggravated assault seems to show its highest rates of over 500 cases per 100,000 in New Mexico, Alaska, and Tennessee, followed by 400 to 500 rates in Arkansas, Louisiana, Missouri, Alabama, South Carolina, and South Dakota. The lowest prevalence (below 100) seems to be in Maine, followed by 100 to 200 per 100,000 rates in New Hampshire, Vermont, Connecticut, New Jersey, Virginia, Kentucky, Ohio, Minnesota, and Utah.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Murder, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
@@ -170,7 +170,7 @@ ggplot() +
 
 Murder seemes to be the least prevalent crime reported to the FBI with the lowest of crime rates at a range of 0 to over 16 cases per 100,000 people, showing mostly mid to low rates (from 0 to 12) throughout the United States. The higher murder rates are found in Louisiana, Nevada, Missouri, and Maryland. The lowest rates below 4 are seen in the New England/northeast region along with Hawaii, and states in the northern midwest and northwest such as Minnesota, North Dakota, Nebraska, Idaho, and Utah. 
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) + 
   geom_map(aes(fill = Rape, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
@@ -181,7 +181,7 @@ ggplot() +
 
 Rape shows highest prevalence rating over 100 per 100,000 in Alaska. Most other states show middle range rates (between 40 to 90 per 100,000) except for Connecticut and New Jersey, which stand out as the lowest rated states below 20, followed by Georgia and North Carolina in the 20 to 40 range.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() + 
   geom_map(aes(x = long, y = lat, map_id = id), data = fifty_states, map = fifty_states, size = 0.15) +
   geom_map(aes(fill = Robbery, map_id = State), map = fifty_states, data = FBICrime, color = "grey40", size = 0.15) + 
