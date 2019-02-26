@@ -3,8 +3,8 @@ title: "FBI Crime Capstone Project Milestone Report"
 author: "Ankita Hanmiah"
 date: "February 7, 2019"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ###Introduction
@@ -240,7 +240,7 @@ CrimePov.SSE <- sum(CrimePov.lm$residuals^2)
 sqrt(CrimePov.SSE/51)
 ```
 
-The graph shows a positive relationship between the rate of poverty and average crime rate in the United States, so as the rate of poverty increases, the average crime rate appears to increase as well. On the graph, a 95% confidence interval and prediction interval are shown. The confidence interval shows the range within which there is a 95% probability that the actual observed average crime rate will be found. The prediction interval shows the estimated range within which it is probable that future predicted average crime rates will be found, based on the actual data observed. The correlation coefficient is a positive 0.510, which indicates that poverty rate and average crime rate are moderately related, but it is not close to a perfect positive relationship. This is backed up by the R squared value (0.2596), which was fairly low. The root mean squared errors value was 341.518.
+The graph shows a positive relationship between the rate of poverty and average crime rate in the United States, so as the rate of poverty increases, the average crime rate appears to increase as well. On the graph, a 95% confidence interval and prediction interval are shown. The confidence interval shows the range within which there is a 95% probability that the actual observed average crime rate will be found. The prediction interval shows the estimated range within which it is probable that future predicted average crime rates will be found, based on the actual data observed. The correlation coefficient is a positive 0.510, which indicates that poverty rate and average crime rate have a moderately positive correlation, but it is not close to a perfect positive relationship. The R squared value is 0.2596, which is fairly low, and the root mean squared errors value is 341.518.
 
 ###The relationship between violent and property crime:
 ```{r ViolentVsProperty, warning = FALSE, message = FALSE}
@@ -273,12 +273,12 @@ VPCrime.SSE <- sum(VPCrime.lm$residuals^2)
 sqrt(VPCrime.SSE/51)
 ```
 
-Again, with violent crime and property crime, we see a positive relationship showing that there does tend to be higher property crime wherever there is higher violent crime. Here the correlation coefficient is 0.7515, which indicates a fairly strong correlation. We see that the relationship is stronger than the one we saw between poverty and average crime. The R squared value is 0.5647, which again indicates that the relationship is fairly strong. The root mean squared errors value was 434.227.
+Again, with violent crime and property crime, we see a positive relationship showing that there does tend to be higher property crime wherever there is higher violent crime. Here the correlation coefficient is 0.7515, which indicates a fairly strong correlation. We see that the relationship is stronger than the one we saw between poverty and average crime. The R squared value is 0.5647 and the root mean squared errors value is 434.227.
 
 #Conclusion
 Through this project, we were able to look at the distributions of crime throughout the United States on the state level and determine which states could be considered "safer" and which "more dangerous", based on these distributions. For cautious families looking for a safer state to settle down in for the growing years of their children, they may want to veer away from states that currently have higher rates of violent crime. As we saw, there is a high prevalence of both violent and property crime in New Mexico, Alaska, and Washington D.C. For people owning homes and vehicles, it may be of value for them to know that these states, as well as the west coast and south, have a higher spread of property crimes--being aware would allow people to invest in cautious measures of protection, like a home security system. 
 
-For law enforcement branches and state governments, this project provides information on how their state compares to others, and what their problem areas are. New Mexico showed the highest rate of burglary but also one of the highest for motor vehicle theft, aggravated assault, and larceny. Knowing where the problem specifically lies allows for programs and measures to be put in place. Knowing the relationship between violent and property crime and also crime and poverty allows for an understanding of how best to approach the problems on a larger scale moving forward, as well. Figuring out what drives people to commit crimes is an important part of preventing crimes, because you do not want to allow others in similar situations to follow the same path. The correlation between poverty and crime, as small as it may be, gives an indication of people who are pushed to commit crimes possibly out of desperation or out of frustration of their own conditions.  
+For law enforcement branches and state governments, this project provides information on how their state compares to others, and what their problem areas are. New Mexico showed the highest rate of burglary but also one of the highest for motor vehicle theft, aggravated assault, and larceny. Knowing where the problem specifically lies allows for programs and measures to be put in place. Knowing the relationship between violent and property crime and also crime and poverty allows for an understanding of how best to approach the problems on a larger scale looking forward. Figuring out what drives people to commit crimes is an important part of preventing crimes by not allowing others in similar situations to follow the same path. 
 
 ###Possibilities for Further Investigation
 It would be interesting to delve deeper into the data provided by the FBI and look further into the crime rates within the states to observe metropolitan versus non-metropolitan crime and poverty. Since there is some positive correlation on an overall state scale between crime rates and poverty, it would be interesting to look at whether or not this continues to show at a county or city level. Are the poverty rates higher in urban areas or rural? And do higher rates of crime follow wherever higher poverty rates are found within these specifically defined areas? 
