@@ -1,0 +1,12 @@
+---
+title: "Capstone Machine Learning"
+author: "Ankita Hanmiah"
+date: "April 3, 2019"
+output: pdf_document
+---
+
+The main question being addressed as a machine learning problem is whether or not poverty plays a role in the rate of crime in the United States, and also whether the rate of violent crime affects the rate of poverty crime. The problem is a supervised problem because we know the kind of result we are looking for in wanting to see lower rates of crime in the states and we want to observe the relationship between the independent and dependent variable to find solutions. It is a regression because we are mapping an independent variable with a continuous dependent variable.
+
+The independent variables that will be used are violent crime and poverty rate, and the dependent variables are property crime and average crime rate, respectably. The machine learning technique that will be used is a linear regression.
+
+The success of the linear regression model will be evaluated by matching the results of the p-values with other determining factors such as the correlation coefficient, R squared value, and root-mean-squared errors value. All of these metrics together will give us an idea of how well the fit of the model and how well it represents the relationship between the variables.
